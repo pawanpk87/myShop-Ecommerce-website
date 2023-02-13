@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
+
+@layer base {
+    html {
+        font-family: 'Calistoga', cursive;
+    }
+}
+
+.card{
+    @apply mb-5 block rounded-lg border border-gray-200 shadow-md
+}
+
+.primary-button{
+    @apply rounded bg-blue-500 py-2 shadow outline-none hover:bg-blue-700 active:bg-blue-800 p-2
+}

@@ -1,17 +1,15 @@
-import Head from "next/head";
+import Layout from "@/components/Layout";
+import ProductItem from "@/components/ProductItem";
+import data from "../utils/data";
 
 export default function Home() {
   return (
-    <>
-      <Head>
-        <title>MyShop</title>
-        <meta name="description" content="MyShop Ecommerce website" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <h1>Home</h1>
-      </main>
-    </>
+    <Layout title="MyShop">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {data.products.map((product) => (
+          <ProductItem product={product} key={product.slug} />
+        ))}
+      </div>
+    </Layout>
   );
 }
