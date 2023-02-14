@@ -9,9 +9,10 @@ import React, { useContext } from "react";
 export default function ProductDetail() {
   const { state, dispatch } = useContext(Store);
 
+  const router = useRouter();
   const { query } = useRouter();
   const { slug } = query;
-  const product = data.products.find((item) => item.slug);
+  const product = data.products.find((item) => item.slug === slug);
   if (!product) {
     return <div>Product Not Found</div>;
   }
@@ -31,6 +32,8 @@ export default function ProductDetail() {
       type: "CART_ADD_ITEM",
       payload: { ...product, quantity: quantity },
     });
+
+    router.push("/cart");
   };
 
   return (

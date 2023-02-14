@@ -6,7 +6,6 @@ import React, { useContext } from "react";
 function Layout({ title, children }) {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
-  console.log("all car is:-", cart);
   return (
     <>
       <Head>

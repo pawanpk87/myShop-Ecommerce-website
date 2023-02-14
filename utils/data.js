@@ -14,7 +14,7 @@ const data = {
     },
     {
       name: "Slim Shirt",
-      slug: "slim-shit",
+      slug: "slim-shirt",
       category: "Shits",
       image: "/images/shirt2.jpg",
       price: 700,
@@ -26,7 +26,7 @@ const data = {
     },
     {
       name: "Bule Shirt",
-      slug: "blue-shit",
+      slug: "blue-shirt",
       category: "Shits",
       image: "/images/shirt3.jpg",
       price: 700,
