@@ -17,3 +17,9 @@
 .primary-button{
     @apply rounded bg-blue-500 py-2 shadow outline-none hover:bg-blue-700 active:bg-blue-800 p-2
 }
+
+input,
+select,
+textarea{
+    @apply rounded border p-2 outline-none ring-indigo-400 focus:ring
+}
