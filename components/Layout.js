@@ -1,9 +1,14 @@
 import { Store } from "@/utils/Store";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Layout({ title, children }) {
+  const { status, data: session } = useSession();
+
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
 
@@ -13,6 +18,8 @@ function Layout({ title, children }) {
     setCardItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, [cart.cartItems]);
 
+  console.log(session);
+
   return (
     <>
       <Head>
@@ -21,7 +28,7 @@ function Layout({ title, children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <ToastContainer position="top-right" limit={1} />
       <div className="flex min-h-screen flex-col justify-between">
         <header>
           <nav className="flex h-12 justify-between shadow-md  items-center px-4">
@@ -37,9 +44,16 @@ function Layout({ title, children }) {
                   </span>
                 ) : null}
               </Link>
-              <Link href="/login">
-                <span className="p-2">Login</span>
-              </Link>
+
+              {status === "loading" ? (
+                "Loading"
+              ) : session?.user ? (
+                <span className="p-2">{session.user.name}</span>
+              ) : (
+                <Link href="/login">
+                  <span className="p-2">Login</span>
+                </Link>
+              )}
             </div>
           </nav>
         </header>
