@@ -46,7 +46,7 @@ function Layout({ title, children }) {
               <Link href="/cart">
                 <span className="p-2">Cart</span>
                 {cardItemsCount > 0 ? (
-                  <span className="mr-3 rounded-full bg-red-600 p-2 py-1 text-xs font-bold text-white">
+                  <span className="mr-2 rounded-full bg-red-600 p-2 py-1 text-xs font-bold text-white">
                     {cardItemsCount}
                   </span>
                 ) : null}
