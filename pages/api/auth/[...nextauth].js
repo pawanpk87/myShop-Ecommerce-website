@@ -1,4 +1,4 @@
-import User from "@/models";
+import User from "@/models/User";
 import db from "@/utils/db";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
