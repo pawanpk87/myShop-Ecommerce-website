@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import { StoreProvide } from "@/utils/Store";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { SessionProvider, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -10,13 +11,15 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <StoreProvide>
-        {Component.auth ? (
-          <Auth>
+        <PayPalScriptProvider deferLoading={true}>
+          {Component.auth ? (
+            <Auth>
+              <Component {...pageProps} />
+            </Auth>
+          ) : (
             <Component {...pageProps} />
-          </Auth>
-        ) : (
-          <Component {...pageProps} />
-        )}
+          )}
+        </PayPalScriptProvider>
       </StoreProvide>
     </SessionProvider>
   );

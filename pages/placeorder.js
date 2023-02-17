@@ -23,9 +23,9 @@ export default function PlaceOrder() {
       .toFixed(2)
   );
 
-  const shippingPrice = itemsPrice < 400 ? 0 : 50;
+  const shippingPrice = itemsPrice < 400 ? 0 : 0;
 
-  const taxPrice = Number((itemsPrice * 0.05).toFixed(2));
+  const taxPrice = Number((itemsPrice * 0.0).toFixed(2));
 
   const totalPrice = Number((itemsPrice + shippingPrice + taxPrice).toFixed(2));
 
@@ -84,7 +84,7 @@ export default function PlaceOrder() {
               <h2 className="mb-2 text-lg">Shipping Address</h2>
               <div>
                 {shippingAddress.fullName},{shippingAddress.address},{" "}
-                {shippingAddress.city},{shippingAddress.postcalCode},{" "}
+                {shippingAddress.city},{shippingAddress.postalCode},{" "}
                 {shippingAddress.country}
               </div>
               <div>
