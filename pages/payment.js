@@ -31,14 +31,14 @@ export default function Payment() {
     dispatch({ type: "SAVE_PAYMENT_METHOD", payload: selectedPaymentMethod });
 
     Cookies.set(
-      "car",
+      "cart",
       JSON.stringify({
         ...cart,
         paymentMethod: selectedPaymentMethod,
       })
     );
 
-    router.push("/placeholder");
+    router.push("/placeorder");
   };
 
   return (
@@ -76,3 +76,5 @@ export default function Payment() {
     </Layout>
   );
 }
+
+Payment.auth = true;

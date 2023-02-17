@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-function CartScreen() {
+function Cart() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
 
@@ -128,4 +128,4 @@ function CartScreen() {
   );
 }
 
-export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
+export default dynamic(() => Promise.resolve(Cart), { ssr: false });
