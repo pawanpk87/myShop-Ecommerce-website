@@ -7,15 +7,10 @@ const handler = async (req, res) => {
   if (!session) {
     res.status(401).send("Signin required");
   }
-  const { user } = session;
   await db.connect();
-  const newOrder = new Order({
-    ...req.body,
-    user: user._id,
-  });
-  const order = await newOrder.save();
+  const order = await Order.findById(req.query.id);
   await db.disconnect();
-  res.status(201).send(order);
+  res.send(order);
 };
 
 export default handler;
