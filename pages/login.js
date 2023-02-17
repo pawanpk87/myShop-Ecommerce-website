@@ -7,7 +7,7 @@ import { getError } from "@/utils/error";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-export default function login() {
+export default function Login() {
   const { data: session } = useSession();
   const router = useRouter();
   const { redirect } = router.query;
