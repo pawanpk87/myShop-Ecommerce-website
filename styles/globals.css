@@ -22,6 +22,10 @@ a{
     @apply rounded bg-blue-500 py-2 shadow outline-none hover:bg-blue-700 active:bg-blue-800 p-2
 }
 
+.default-button{
+ @apply rounded bg-gray-100 py-2 shadow outline-none hover:bg-gray-100 active:bg-gray-300 p-2
+}
+
 input,
 select,
 textarea{
