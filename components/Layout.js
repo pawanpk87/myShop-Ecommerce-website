@@ -4,12 +4,14 @@ import Cookies from "js-cookie";
 import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DropdownLink from "./DropdownLink";
 
 function Layout({ title, children }) {
+  const router = useRouter();
   const { status, data: session } = useSession();
 
   const { state, dispatch } = useContext(Store);
@@ -27,6 +29,13 @@ function Layout({ title, children }) {
     signOut({ callbackUrl: "/login" });
   };
 
+  const [query, setQuery] = useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    router.push(`/search/?query=${query}`);
+  };
+
   return (
     <>
       <Head>
@@ -42,6 +51,35 @@ function Layout({ title, children }) {
             <Link href="/">
               <span className="text-lg font-bold">myShop</span>
             </Link>
+            <form
+              onSubmit={submitHandler}
+              className="mx-auto  hidden w-full justify-center md:flex"
+            >
+              <input
+                onChange={(e) => setQuery(e.target.value)}
+                type="text"
+                className="rounded-tr-none rounded-br-none p-1.5 text-sm  focus:ring-0"
+                placeholder="Search products"
+              />
+              <button
+                className="rounded rounded-tl-none rounded-bl-none bg-blue-400 p-1 text-sm dark:text-black"
+                type="submit"
+                id="button-addon2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </form>
             <div>
               <Link href="/cart">
                 <span className="p-2">Cart</span>
@@ -55,7 +93,7 @@ function Layout({ title, children }) {
               {status === "loading" ? (
                 "Loading"
               ) : session?.user ? (
-                <Menu as="div" className="relative inline-block">
+                <Menu as="div" className="relative inline-block z-10">
                   <Menu.Button className="text-blue-600">
                     {session.user.name}
                   </Menu.Button>
