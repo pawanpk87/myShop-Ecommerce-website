@@ -46,6 +46,11 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    banner: String,
   },
   {
     timestamps: true,
