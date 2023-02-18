@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import { getError } from "@/utils/error";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -19,6 +20,7 @@ function reducer(state, action) {
     case "FETCH_FAIL": {
       return { ...state, loading: false, error: action.payload };
     }
+
     case "PAY_REQUEST": {
       return { ...state, loadingPay: true };
     }
@@ -31,6 +33,20 @@ function reducer(state, action) {
     case "PAY_RESET": {
       return { ...state, loadingPay: false, errorPay: "" };
     }
+
+    case "DELIVER_REQUEST": {
+      return { ...state, loadingDeliver: true, successDeliver: false };
+    }
+    case "DELIVER_SUCCESS": {
+      return { ...state, loadingDeliver: false, successDeliver: true };
+    }
+    case "DELIVER_FAIL": {
+      return { ...state, loadingDeliver: false };
+    }
+    case "DELIVER_RESET": {
+      return { ...state, loadingDeliver: false, successDeliver: false };
+    }
+
     default: {
       return state;
     }
@@ -40,11 +56,22 @@ function reducer(state, action) {
 export default function Order() {
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
+  const { data: session } = useSession();
+
   const { query } = useRouter();
   const orderId = query.id;
 
   const [
-    { loading, error, order, successPay, loadingPay, errorPay },
+    {
+      loading,
+      error,
+      order,
+      successPay,
+      loadingPay,
+      errorPay,
+      loadingDeliver,
+      successDeliver,
+    },
     dispatch,
   ] = useReducer(reducer, {
     loading: true,
@@ -63,10 +90,18 @@ export default function Order() {
       }
     };
 
-    if (!order._id || successPay || (order._id && order._id != orderId)) {
+    if (
+      !order._id ||
+      successPay ||
+      successDeliver ||
+      (order._id && order._id != orderId)
+    ) {
       fetchOrder();
       if (successPay) {
         dispatch({ type: "PAY_RESET" });
+      }
+      if (successDeliver) {
+        dispatch({ type: "DELIVER_RESET" });
       }
     } else {
       const loadPaypalScript = async () => {
@@ -87,7 +122,7 @@ export default function Order() {
       };
       loadPaypalScript();
     }
-  }, [order, orderId, paypalDispatch, successPay]);
+  }, [order, orderId, paypalDispatch, successPay, successDeliver]);
 
   const {
     shippingAddress,
@@ -121,7 +156,10 @@ export default function Order() {
     return actions.order.capture().then(async function (details) {
       try {
         dispatch({ type: "PAY_REQUEST" });
-        const { data } = await axios.put(`api/orders/${order._id}`, details);
+        const { data } = await axios.put(
+          `api/orders/${order._id}/pay`,
+          details
+        );
 
         dispatch({ type: "PAY_SUCCESS", payload: data });
         toast.success("Order is paid successfully");
@@ -134,6 +172,21 @@ export default function Order() {
 
   const onError = (error) => {
     toast.error(getError(error));
+  };
+
+  const deliverOrderHandler = async () => {
+    try {
+      dispatch({ type: "DELIVER_REQUEST" });
+      const { data } = await axios.put(
+        `/api/admin/orders/${order._id}/deliver`,
+        {}
+      );
+      dispatch({ type: "DELIVER_SUCCESS", payload: data });
+      toast.success("Order is delivered");
+    } catch (error) {
+      dispatch({ type: "DELIVER_FAIL", payload: getError(error) });
+      toast.error(getError(error));
+    }
   };
 
   return (
@@ -251,6 +304,17 @@ export default function Order() {
                       </div>
                     )}
                     {loadingPay && <div>Loading...</div>}
+                  </li>
+                )}
+                {session.user.isAdmin && order.isPaid && !order.isDelivered && (
+                  <li>
+                    {loadingDeliver && <div>Loading...</div>}
+                    <button
+                      className="primary-button w-full"
+                      onClick={deliverOrderHandler}
+                    >
+                      Deliver Order
+                    </button>
                   </li>
                 )}
               </ul>
