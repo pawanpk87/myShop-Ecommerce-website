@@ -105,3 +105,5 @@ export default function Products() {
     </Layout>
   );
 }
+
+Products.auth = { adminOnly: true };

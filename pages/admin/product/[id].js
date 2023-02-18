@@ -18,6 +18,27 @@ function reducer(state, action) {
     case "FETCH_FAIL": {
       return { ...state, loading: false, error: action.payload };
     }
+
+    case "UPDATE_REQUEST": {
+      return { ...state, loadingUpdate: true, errorUpdate: "" };
+    }
+    case "UPDATE_SUCCESS": {
+      return { ...state, loadingUpdate: false, errorUpdate: "" };
+    }
+    case "UPDATE_FAIL": {
+      return { ...state, loadingUpdate: false, errorUpdate: action.payload };
+    }
+
+    case "UPLOAD_REQUEST": {
+      return { ...state, loadingUpload: true, errorUpload: "" };
+    }
+    case "UPLOAD_SUCCESS": {
+      return { ...state, loadingUpload: false, errorUpload: "" };
+    }
+    case "UPLOAD_FAIL": {
+      return { ...state, loadingUpload: false, errorUpload: action.payload };
+    }
+
     default: {
       return state;
     }
@@ -27,10 +48,11 @@ function reducer(state, action) {
 export default function ProductEditScreen() {
   const { query } = useRouter();
   const productId = query.id;
-  const [{ loading, error, loadingUpdate }, dispatch] = useReducer(reducer, {
-    loading: true,
-    error: "",
-  });
+  const [{ loading, error, loadingUpdate, loadingUpload }, dispatch] =
+    useReducer(reducer, {
+      loading: true,
+      error: "",
+    });
 
   const {
     register,
@@ -93,6 +115,48 @@ export default function ProductEditScreen() {
     }
   };
 
+  const uploadHandler = async (e, imageField = "image") => {
+    console.log("cloud name:-");
+    console.log(process.env.CLOUDINARY_CLOUD_NAME);
+
+    console.log("key:-");
+    console.log(process.env.CLOUDINARY_SECRET);
+
+    console.log("mongourl:-");
+    console.log(process.env.MONGODO_URL);
+
+    const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
+
+    try {
+      dispatch({ type: "UPLOAD_REQUEST" });
+      const {
+        data: { signature, timestamp },
+      } = await axios("/api/admin/cloudinary-sign");
+
+      const file = e.target.files[0];
+
+      const formData = new FormData();
+
+      formData.append("file", file);
+      formData.append("signature", signature);
+      formData.append("timestamp", timestamp);
+      formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+
+      const { data } = await axios.post(url, formData);
+
+      dispatch({ type: "UPLOAD_SUCCESS" });
+
+      setValue(imageField, data.secure_url);
+
+      console.log("image url is:-", data.secure_url);
+
+      toast.success("File uploaded successfully");
+    } catch (error) {
+      dispatch({ type: "UPLOAD_FAIL", payload: getError(error) });
+      toast.error(getError(error));
+    }
+  };
+
   return (
     <Layout title={`Edit Product ${productId}`}>
       <div className="grid md:grid-cols-4 md:gap-5">
@@ -151,7 +215,6 @@ export default function ProductEditScreen() {
                   })}
                   className="w-full"
                   id="slug"
-                  autoFocus
                 ></input>
                 {errors.slug && (
                   <div className="text-red-500">{errors.slug.message}</div>
@@ -167,7 +230,6 @@ export default function ProductEditScreen() {
                   })}
                   className="w-full"
                   id="price"
-                  autoFocus
                 ></input>
                 {errors.price && (
                   <div className="text-red-500">{errors.price.message}</div>
@@ -175,19 +237,15 @@ export default function ProductEditScreen() {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="image">Image</label>
+                <label htmlFor="imageFile">Upload image</label>
                 <input
-                  type="text"
-                  {...register("image", {
-                    required: "Please enter image",
-                  })}
+                  type="file"
                   className="w-full"
-                  id="image"
-                  autoFocus
-                ></input>
-                {errors.image && (
-                  <div className="text-red-500">{errors.image.message}</div>
-                )}
+                  id="imageFile"
+                  onChange={uploadHandler}
+                />
+
+                {loadingUpload && <div>Uploading....</div>}
               </div>
 
               <div className="mb-4">
@@ -199,7 +257,6 @@ export default function ProductEditScreen() {
                   })}
                   className="w-full"
                   id="category"
-                  autoFocus
                 ></input>
                 {errors.category && (
                   <div className="text-red-500">{errors.category.message}</div>
@@ -215,7 +272,6 @@ export default function ProductEditScreen() {
                   })}
                   className="w-full"
                   id="brand"
-                  autoFocus
                 ></input>
                 {errors.brand && (
                   <div className="text-red-500">{errors.brand.message}</div>
@@ -231,7 +287,6 @@ export default function ProductEditScreen() {
                   })}
                   className="w-full"
                   id="countInStock"
-                  autoFocus
                 ></input>
                 {errors.countInStock && (
                   <div className="text-red-500">
@@ -249,7 +304,6 @@ export default function ProductEditScreen() {
                   })}
                   className="w-full"
                   id="description"
-                  autoFocus
                 ></input>
                 {errors.description && (
                   <div className="text-red-500">
