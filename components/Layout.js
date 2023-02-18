@@ -101,6 +101,14 @@ function Layout({ title, children }) {
                       </DropdownLink>
                     </Menu.Item>
 
+                    {session.user.isAdmin && (
+                      <Menu.Item>
+                        <DropdownLink href="/admin/dashboard">
+                          Admin Dashboard
+                        </DropdownLink>
+                      </Menu.Item>
+                    )}
+
                     <Menu.Item>
                       <DropdownLink href="#" logout={logoutClickHandler}>
                         Logout
