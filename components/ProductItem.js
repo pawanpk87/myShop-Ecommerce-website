@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import ReactStars from "react-rating-stars-component";
 
 export default function ProductItem({ product, addToCartHandler }) {
+  const ratingChanged = () => {};
+
   return (
     <div className="card">
       <Link href={`/product/${product.slug}`}>
@@ -21,6 +24,14 @@ export default function ProductItem({ product, addToCartHandler }) {
           <h2 className="text-lg">{product.name}</h2>
         </Link>
         <p className="mb-2">{product.brand}</p>
+        <ReactStars
+          count={5}
+          onChange={ratingChanged}
+          size={24}
+          activeColor="#ffd700"
+          value={product.rating}
+          edit={false}
+        />
         <p>{product.price}₹</p>
         <button
           className="primary-button"

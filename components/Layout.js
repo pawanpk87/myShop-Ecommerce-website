@@ -51,6 +51,7 @@ function Layout({ title, children }) {
             <Link href="/">
               <span className="text-lg font-bold">myShop</span>
             </Link>
+
             <form
               onSubmit={submitHandler}
               className="mx-auto  hidden w-full justify-center md:flex"
@@ -80,16 +81,8 @@ function Layout({ title, children }) {
                 </svg>
               </button>
             </form>
-            <div>
-              <Link href="/cart">
-                <span className="p-2">Cart</span>
-                {cardItemsCount > 0 ? (
-                  <span className="mr-2 rounded-full bg-red-600 p-2 py-1 text-xs font-bold text-white">
-                    {cardItemsCount}
-                  </span>
-                ) : null}
-              </Link>
 
+            <div className="flex">
               {status === "loading" ? (
                 "Loading"
               ) : session?.user ? (
@@ -120,6 +113,14 @@ function Layout({ title, children }) {
                   <span className="p-2">Login</span>
                 </Link>
               )}
+              <Link href="/cart">
+                <span className="p-2">Cart</span>
+                {cardItemsCount > 0 ? (
+                  <span className="rounded-full bg-red-600 p-2 py-1 text-xs font-bold text-white">
+                    {cardItemsCount}
+                  </span>
+                ) : null}
+              </Link>
             </div>
           </nav>
         </header>

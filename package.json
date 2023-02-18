@@ -22,6 +22,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.1",
+    "react-rating-stars-component": "^2.2.0",
     "react-responsive-carousel": "^3.2.23",
     "react-toastify": "^9.1.1"
   },
