@@ -116,15 +116,6 @@ export default function ProductEditScreen() {
   };
 
   const uploadHandler = async (e, imageField = "image") => {
-    console.log("cloud name:-");
-    console.log(process.env.CLOUDINARY_CLOUD_NAME);
-
-    console.log("key:-");
-    console.log(process.env.CLOUDINARY_SECRET);
-
-    console.log("mongourl:-");
-    console.log(process.env.MONGODO_URL);
-
     const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
 
     try {

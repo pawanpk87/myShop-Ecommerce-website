@@ -1,7 +1,10 @@
 import Layout from "@/components/Layout";
+import { getError } from "@/utils/error";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useReducer } from "react";
+import { toast } from "react-toastify";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -14,6 +17,30 @@ function reducer(state, action) {
     case "FETCH_FAIL": {
       return { ...state, loading: false, error: action.payload };
     }
+
+    case "CREATE_REQUEST": {
+      return { ...state, loadingCreate: true };
+    }
+    case "CREATE_SUCCESS": {
+      return { ...state, loadingCreate: false };
+    }
+    case "CREATE_FAIL": {
+      return { ...state, loadingCreate: false };
+    }
+
+    case "DELETE_REQUEST": {
+      return { ...state, loadingDelete: true };
+    }
+    case "DELETE_SUCCESS": {
+      return { ...state, loadingDelete: false, successDelete: true };
+    }
+    case "DELETE_FAIL": {
+      return { ...state, loadingDelete: false };
+    }
+    case "DELETE_RESET": {
+      return { ...state, loadingDelete: false, successDelete: false };
+    }
+
     default: {
       return state;
     }
@@ -21,11 +48,17 @@ function reducer(state, action) {
 }
 
 export default function Products() {
-  const [{ loading, error, products }, dispatch] = useReducer(reducer, {
+  const [
+    { loading, error, products, loadingCreate, loadingDelete, successDelete },
+    dispatch,
+  ] = useReducer(reducer, {
     loading: true,
     products: [],
     error: "",
+    successDelete: false,
   });
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,8 +70,44 @@ export default function Products() {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
-    fetchData();
-  }, []);
+
+    if (successDelete) {
+      dispatch({ type: "DELETE_RESET" });
+    } else {
+      fetchData();
+    }
+  }, [successDelete]);
+
+  const createHandler = async () => {
+    if (!window.confirm("Are you sure")) {
+      return;
+    }
+    try {
+      dispatch({ type: "CREATE_REQUEST" });
+      const { data } = await axios.post(`/api/admin/products`);
+      dispatch({ type: "CREATE_SUCCESS" });
+      toast.success("Product created succssfully");
+      router.push(`/admin/product/${data.product._id}`);
+    } catch (error) {
+      dispatch({ type: "CREATE_FAIL" });
+      toast.error(getError(error));
+    }
+  };
+
+  const deletHandler = async (productId) => {
+    if (!window.confirm("Are you sure?")) {
+      return;
+    }
+    try {
+      dispatch({ type: "DELETE_REQUEST" });
+      await axios.delete(`/api/admin/products/${productId}`);
+      dispatch({ type: "DELETE_SUCCESS" });
+      toast.success("Product deleted succssfully");
+    } catch (error) {
+      dispatch({ type: "DELETE_FAIL" });
+      toast.error(getError(error));
+    }
+  };
 
   return (
     <Layout title="Admin Dashboard">
@@ -62,7 +131,18 @@ export default function Products() {
           </ul>
         </div>
         <div className="overflow-x-auto md:col-span-3">
-          <h1 className="mb-4 text-xl">Admin Dashboard</h1>
+          <div className="flex justify-between">
+            <h1 className="mb-4 text-xl">Admin Dashboard</h1>
+            {loadingDelete && <div>Deleting item...</div>}
+            <button
+              disabled={loadingCreate}
+              onClick={createHandler}
+              className="primary-button"
+            >
+              {loadingCreate ? "Loading" : "Create"}
+            </button>
+          </div>
+
           {loading ? (
             <div>Loading...</div>
           ) : error ? (
@@ -91,8 +171,20 @@ export default function Products() {
                       <td className="p-5">{product.countInStock}</td>
                       <td className="p-5">{product.rating}</td>
                       <td className="p-5">
-                        <Link href={`/admin/product/${product._id}`}>Edit</Link>
-                        &nbsp;<button>Delete</button>
+                        <Link
+                          className="default-button"
+                          href={`/admin/product/${product._id}`}
+                        >
+                          Edit
+                        </Link>
+                        &nbsp;
+                        <button
+                          successDelete
+                          onClick={() => deletHandler(product._id)}
+                          className="default-button"
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
