@@ -23,9 +23,9 @@ export default function PlaceOrder() {
       .toFixed(2)
   );
 
-  const shippingPrice = itemsPrice < 400 ? 0 : 0;
+  const shippingPrice = itemsPrice < 400 ? 0 : 120;
 
-  const taxPrice = Number((itemsPrice * 0.0).toFixed(2));
+  const taxPrice = Number((itemsPrice * 0.05).toFixed(2));
 
   const totalPrice = Number((itemsPrice + shippingPrice + taxPrice).toFixed(2));
 
@@ -40,7 +40,6 @@ export default function PlaceOrder() {
   const placeOrderHandler = async () => {
     try {
       setLoading(true);
-      console.log("placeOrderHandler");
       const { data } = await axios.post("/api/orders", {
         orderItems: cartItems,
         shippingAddress,
@@ -118,6 +117,7 @@ export default function PlaceOrder() {
                         <Link href={`/product/${item.slug}`}>
                           <span className="flex items-center">
                             <Image
+                              className="rounded-sm"
                               src={item.image}
                               alg={item.name}
                               width={50}

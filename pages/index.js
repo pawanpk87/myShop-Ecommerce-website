@@ -11,9 +11,6 @@ import { Carousel } from "react-responsive-carousel";
 import { toast } from "react-toastify";
 
 export default function Home({ featuredProducts, products }) {
-  console.log("Products:-", products);
-  console.log("featured Products:-", featuredProducts);
-
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
 

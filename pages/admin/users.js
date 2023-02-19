@@ -82,7 +82,7 @@ export default function Users() {
     <Layout title="Admin Dashboard">
       <div className="grid md:grid-cols-4 md:gap-5">
         <div>
-          <ul>
+          <ul className="leading-9">
             <li>
               <Link href="/admin/dashboard">Dashboard</Link>
             </li>
@@ -92,10 +92,25 @@ export default function Users() {
             <li>
               <Link href="/admin/products">Products</Link>
             </li>
-            <li>
+            <li className="flex items-center whitespace-nowrap font-bold text-blue-700">
               <Link className="font-bold" href="/admin/users">
                 Users
               </Link>
+              {""}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
             </li>
           </ul>
         </div>

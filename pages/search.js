@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import ProductItem from "@/components/ProductItem";
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 3;
 
 const prices = [
   {

@@ -1,8 +1,10 @@
 import Layout from "@/components/Layout";
 import { getError } from "@/utils/error";
+import { Store } from "@/utils/Store";
 import axios from "axios";
-import { signIn, useSession } from "next-auth/react";
-import React, { useEffect } from "react";
+import Cookies from "js-cookie";
+import { signIn, signOut, useSession } from "next-auth/react";
+import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -38,12 +40,22 @@ export default function Profile() {
 
       toast.success("Profile updated successfully");
 
+      logoutClickHandler();
+
       if (result.error) {
         toast.error(result.error);
       }
     } catch (error) {
       toast.error(getError(error));
     }
+  };
+
+  const { state, dispatch } = useContext(Store);
+
+  const logoutClickHandler = () => {
+    Cookies.remove("cart");
+    dispatch({ type: "CART_RESET" });
+    signOut({ callbackUrl: "/login" });
   };
 
   return (

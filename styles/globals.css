@@ -2,16 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
 @layer base {
     html {
-        font-family: 'Calistoga', cursive;
+      font-family: 'Fredoka One', cursive;
     }
-}
-
-a{
-    @apply text-blue-500 hover:text-blue-800
 }
 
 .card{
@@ -19,7 +15,7 @@ a{
 }
 
 .primary-button{
-    @apply rounded bg-blue-500 py-2 shadow outline-none hover:bg-blue-700 active:bg-blue-800 p-2
+    @apply rounded bg-blue-500 py-2 shadow-lg outline-none hover:bg-blue-700 active:bg-blue-800 p-2 
 }
 
 .default-button{

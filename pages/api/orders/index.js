@@ -11,6 +11,13 @@ const handler = async (req, res) => {
   await db.connect();
   const newOrder = new Order({
     ...req.body,
+    isPaid: false,
+    paidAt: Date.now(),
+    paymentResult: {
+      id: "",
+      status: "",
+      email_address: "",
+    },
     user: user._id,
   });
   const order = await newOrder.save();

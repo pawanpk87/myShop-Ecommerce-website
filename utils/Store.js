@@ -1,7 +1,5 @@
 import Cookies from "js-cookie";
-
 const { createContext, useReducer } = require("react");
-
 export const Store = createContext();
 
 const initialStore = {

@@ -32,11 +32,29 @@ const productSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
+    ratings: [
+      {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+    ],
+    totalRatings: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     numReviews: {
       type: Number,
       required: true,
       default: 0,
     },
+    reviews: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     countInStock: {
       type: Number,
       required: true,

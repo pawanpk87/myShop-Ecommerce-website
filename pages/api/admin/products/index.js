@@ -32,8 +32,17 @@ const postHandler = async (req, res) => {
     countInStock: 0,
     description: "sample description",
     rating: 0,
+    ratings: [0, 0, 0, 0, 0],
+    totalRatings: 0,
     numReviews: 0,
+    reviews: [],
+    isFeatured: false,
+    banner: "",
   });
+
+  console.log("post called....");
+  console.log(newProduct);
+
   const product = await newProduct.save();
   await db.disconnect();
   res.send({

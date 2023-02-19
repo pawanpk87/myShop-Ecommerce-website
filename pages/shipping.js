@@ -96,7 +96,6 @@ export default function Shipping() {
             })}
             className="w-full"
             id="address"
-            autoFocus
           ></input>
           {errors.address && (
             <div className="text-red-500">{errors.address.message}</div>
@@ -112,7 +111,6 @@ export default function Shipping() {
             })}
             className="w-full"
             id="city"
-            autoFocus
           ></input>
           {errors.city && (
             <div className="text-red-500">{errors.city.message}</div>
@@ -128,7 +126,6 @@ export default function Shipping() {
             })}
             className="w-full"
             id="postalCode"
-            autoFocus
           ></input>
           {errors.postalCode && (
             <div className="text-red-500">{errors.postalCode.message}</div>
@@ -144,7 +141,6 @@ export default function Shipping() {
             })}
             className="w-full"
             id="country"
-            autoFocus
           ></input>
           {errors.country && (
             <div className="text-red-500">{errors.country.message}</div>

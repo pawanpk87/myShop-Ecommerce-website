@@ -64,6 +64,7 @@ function Cart() {
                       <Link href={`/product/${item.slug}`}>
                         <span className="flex items-center">
                           <Image
+                            className="rounded-sm"
                             src={item.image}
                             alg={item.name}
                             width={50}

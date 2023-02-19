@@ -73,7 +73,7 @@ export default function Dashboard() {
     labels: summay.salesDate.map((yearAndMont) => yearAndMont._id),
     datasets: [
       {
-        labels: "Sales",
+        label: "Sales",
         backgroundColor: "rgba(162,222,208,1)",
         data: summay.salesDate.map((yearAndMont) => yearAndMont.totalSales),
       },
@@ -84,11 +84,24 @@ export default function Dashboard() {
     <Layout title="Admin Dashboard">
       <div className="grid md:grid-cols-4 md:gap-5">
         <div>
-          <ul>
-            <li>
-              <Link className="font-bold" href="/admin/dashboard">
-                Dashboard
-              </Link>
+          <ul className="leading-9">
+            <li className="flex items-center whitespace-nowrap font-bold text-blue-700">
+              <Link href="/admin/dashboard">Dashboard</Link>
+              {""}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
             </li>
             <li>
               <Link href="/admin/orders">Orders</Link>
