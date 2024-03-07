@@ -17,7 +17,7 @@ export default function Login() {
       router.push(redirect || "/");
     }
   }, [router, session, redirect]);
-
+  useEffect(() => { }, [])
   const {
     register,
     handleSubmit,
