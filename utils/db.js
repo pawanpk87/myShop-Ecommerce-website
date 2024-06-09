@@ -14,6 +14,7 @@ async function connect() {
     await mongoose.disconnect();
   }
   const db = await mongoose.connect(process.env.MONGODO_URL);
+  console.log("connected to mongoDB....");
   connection.isConnected = db.connections[0].readyState;
 }
 

@@ -143,6 +143,7 @@ export default function PlaceOrder() {
           </div>
           <div className="card p-5">
             <h2 className="mb-2 text-lg">Order Summary</h2>
+            <hr/>
             <ul>
               <li>
                 <div className="mb-2 flex justify-between">

@@ -7,11 +7,13 @@
 @layer base {
     html {
       font-family: 'Fredoka One';
+      font-weight: 600;
+      font-size: medium;
     }
 }
 
 .card{
-    @apply mb-5 block rounded-lg border border-gray-200 shadow-md
+    @apply mb-5 block rounded-lg border border-gray-200 shadow-xl
 }
 
 .primary-button{
