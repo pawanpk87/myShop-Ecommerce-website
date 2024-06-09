@@ -120,11 +120,11 @@ export default function Search(props) {
   return (
     <Layout title="Search">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
-          <div className="my-3">
-            <h2>Categories</h2>
+        <div className="border-r-2 p-4">
+          <div className="my-3 p-2 shadow-xl">
+            <h2>🔠 Categories</h2>
             <select
-              className="w-full"
+              className="w-full mt-2"
               value={category}
               onChange={categoryHandler}
             >
@@ -138,9 +138,9 @@ export default function Search(props) {
             </select>
           </div>
 
-          <div className="my-3">
-            <h2>Brands</h2>
-            <select className="w-full" value={brand} onChange={brandHandler}>
+          <div className="my-3 p-2 shadow-xl">
+            <h2>✅ Brands</h2>
+            <select className="w-full mt-2" value={brand} onChange={brandHandler}>
               <option value="all">All</option>
               {brands &&
                 brands.map((brand) => (
@@ -151,9 +151,9 @@ export default function Search(props) {
             </select>
           </div>
 
-          <div className="my-3">
-            <h2>Prices</h2>
-            <select className="w-full" value={price} onChange={priceHandler}>
+          <div className="my-3 p-2 shadow-xl">
+            <h2>💸 Prices</h2>
+            <select className="w-full mt-2" value={price} onChange={priceHandler}>
               <option value="all">All</option>
               {prices &&
                 prices.map((price) => (
@@ -164,9 +164,9 @@ export default function Search(props) {
             </select>
           </div>
 
-          <div className="my-3">
-            <h2>Rating</h2>
-            <select className="w-full" value={rating} onChange={ratingHandler}>
+          <div className="my-3 p-2 shadow-xl">
+            <h2>⭐ Rating</h2>
+            <select className="w-full mt-2" value={rating} onChange={ratingHandler}>
               <option value="all">All</option>
               {ratings &&
                 ratings.map((rating) => (
@@ -180,7 +180,7 @@ export default function Search(props) {
         <div className="md:col-span-3">
           <div className="mb-2 flex items-center justify-between border-b-2 pb-2">
             <div className="flex items-center">
-              {products.length === 0 ? "No" : countProducts}
+              {products.length === 0 ? "No" : countProducts}{" "}
               Results
               {query !== "all" && query !== "" && " : " + query}
               {category !== "all" && category !== "" && " : " + category}

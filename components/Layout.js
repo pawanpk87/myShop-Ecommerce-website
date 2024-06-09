@@ -71,13 +71,13 @@ function Layout({ title, children }) {
             </div>
 
             <form
-              className="mx-auto  hidden w-full justify-center md:flex"
+              className="mx-auto hidden w-full justify-center md:flex"
               onSubmit={submitHandler}
             >
               <input
                 onChange={(e) => setQuery(e.target.value)}
                 type="text"
-                className="rounded-tr-none rounded-br-none p-1.5 text-sm  focus:ring-0"
+                className="rounded-tr-none rounded-br-none p-2 w-96 text-sm  focus:ring-0"
                 placeholder="Search products"
               />
               <button
@@ -100,13 +100,13 @@ function Layout({ title, children }) {
               </button>
             </form>
 
-            <div className="hidden md:flex">
+            <div className="hidden md:flex justify-between">
               {status === "loading" ? (
                 "Loading"
               ) : session?.user ? (
                 <Menu as="div" className="relative inline-block z-10">
                   <Menu.Button className="text-blue-600">
-                    {session.user.name}
+                  👤 {session.user.name}
                   </Menu.Button>
                   <Menu.Items className="absolute right-0 w-56 origin-top-right  p-2 bg-white shadow-lg rounded-t-lg rounded-b-lg ">
                     <Menu.Item>
@@ -139,8 +139,8 @@ function Layout({ title, children }) {
                   <span className="p-2">Login</span>
                 </Link>
               )}
-              <Link href="/cart">
-                <span className="p-2">Cart</span>
+              <Link href="/cart" className="justify-between">
+                <span className="p-2">🛒</span>
                 {cardItemsCount > 0 ? (
                   <span className="rounded-full bg-red-600 p-2 py-1 text-xs font-bold text-white">
                     {cardItemsCount}
@@ -279,7 +279,7 @@ function Layout({ title, children }) {
           {children}
         </main>
         <footer className="flex h-10 justify-center items-center shadow-inner">
-          <p>Made with ❤️ in India</p>
+          <p>Made with ❤️ in BITS</p>
         </footer>
       </div>
     </>

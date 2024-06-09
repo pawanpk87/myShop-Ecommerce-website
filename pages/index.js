@@ -34,7 +34,7 @@ export default function Home({ featuredProducts, products }) {
   };
 
   return (
-    <Layout title="MyShop">
+    <Layout title="MyShop" className="bg-slate-400">
       <div className="z-0">
         <Carousel showThumbs={false} autoPlay infiniteLoop>
           {featuredProducts.map((product) => (

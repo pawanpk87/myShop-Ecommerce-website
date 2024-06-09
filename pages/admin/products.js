@@ -112,7 +112,7 @@ export default function Products() {
   return (
     <Layout title="Admin Dashboard">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
+        <div className="p-4 border-r-4">
           <ul className="leading-9">
             <li>
               <Link href="/admin/dashboard">Dashboard</Link>

@@ -63,23 +63,23 @@ export default function ProductDetail(props) {
 
   return (
     <Layout title={product.name}>
-      <div className="grid md:grid-cols-4 md:gap-3 my-2">
+      <div className="grid md:grid-cols-4 md:gap-2 my-2">
         <div className="md:col-span-2 items-center">
           <Image
             src={product.image}
             alt={product.name}
-            width={500}
-            height={500}
+            width={700}
+            height={700}
             className="rounded-md"
           ></Image>
         </div>
-        <div>
+        <div className="p-4">
           <ul className="leading-9">
-            <li>
+            <li className="">
               <h1 className="text-lg">{product.name}</h1>
             </li>
-            <li>Category: {product.category}</li>
-            <li>Brand: {product.brand}</li>
+            <li>🔠 Category: {product.category}</li>
+            <li>✅ Brand: {product.brand}</li>
             <li className="whitespace-nowrap">
               <div className="flex items-center space-x-6">
                 <ReactStars
@@ -92,8 +92,12 @@ export default function ProductDetail(props) {
                 {product.totalRatings} Ratings
               </div>
             </li>
-            <li>Description: {product.description}</li>
+            <li> Description: {product.description}</li>
+
             <br />
+            <hr/>
+            <br />
+         
             <li className="flex items-center space-x-4 whitespace-nowrap">
               Rate Product:
               <ReactStars
