@@ -1,0 +1,11 @@
+MONGODB_URL=mongodb+srv://username:password@cluster0.aksjdfas.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+NEXTAUTH_URL=https://my-shop-ecommerce-website.vercel.app (for local it will be http://localhost:the port on which the app is running)
+
+NEXTAUTH_SECRET=secretId (Let the NEXTAUTH_SECRET be secretId; it will work. If you want to know more, then see the NextAuth documentation)
+
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=cloudinaryUsername 
+
+NEXT_PUBLIC_CLOUDINARY_API_KEY=cloudinary_API_KEY 
+
+CLOUDINARY_SECRET=cloudinary_Secret
