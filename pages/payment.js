@@ -46,7 +46,7 @@ export default function Payment() {
       <CheckoutWizard activeStep={2} />
       <form onSubmit={submitHandler} className="mx-auto max-w-screen-md">
         <h1 className="mb-4 text-xl">Payment Method</h1>
-        {["PayPal", "Stripe", "CashOnDelivery"].map((payment) => (
+        {["🅿 PayPal", "🆂 Stripe", "💵 CashOnDelivery"].map((payment) => (
           <div key={payment} className="mb-4">
             <input
               name="paymentMethod"

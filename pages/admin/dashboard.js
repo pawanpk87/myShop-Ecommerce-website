@@ -83,10 +83,10 @@ export default function Dashboard() {
   return (
     <Layout title="Admin Dashboard">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
+        <div className="p-4 border-r-4">
           <ul className="leading-9">
             <li className="flex items-center whitespace-nowrap font-bold text-blue-700">
-              <Link href="/admin/dashboard">Dashboard</Link>
+              <Link href="/admin/dashboard" >Dashboard</Link>
               {""}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -104,13 +104,13 @@ export default function Dashboard() {
               </svg>
             </li>
             <li>
-              <Link href="/admin/orders">Orders</Link>
+              <Link href="/admin/orders" >Orders</Link>
             </li>
             <li>
-              <Link href="/admin/products">Products</Link>
+              <Link href="/admin/products" >Products</Link>
             </li>
             <li>
-              <Link href="/admin/users">Users</Link>
+              <Link href="/admin/users" >Users</Link>
             </li>
           </ul>
         </div>
@@ -123,25 +123,25 @@ export default function Dashboard() {
           ) : (
             <div>
               <div className="grid grid-cols-1 md:grid-cols-4">
-                <div className="card m-5 p-5">
+                <div className="card m-5 p-5 bg-violet-600 text-white bg-violet-600 text-white">
                   <p className="text-3xl">{summay.ordersPrice} ₹</p>
                   <p>Sales</p>
                   <Link href="/admin/orders">View sales</Link>
                 </div>
 
-                <div className="card m-5 p-5">
+                <div className="card m-5 p-5 bg-violet-600 text-white">
                   <p className="text-3xl">{summay.ordersCount}</p>
                   <p>Orders</p>
                   <Link href="/admin/orders">View orders</Link>
                 </div>
 
-                <div className="card m-5 p-5">
+                <div className="card m-5 p-5 bg-violet-600 text-white">
                   <p className="text-3xl">{summay.productsCount}</p>
                   <p>Products</p>
                   <Link href="/admin/products">View products</Link>
                 </div>
 
-                <div className="card m-5 p-5">
+                <div className="card m-5 p-5 bg-violet-600 text-white">
                   <p className="text-3xl">{summay.usersCount}</p>
                   <p>Users</p>
                   <Link href="/admin/users">View users</Link>
