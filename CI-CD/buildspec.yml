@@ -1,0 +1,12 @@
+version: 0.2
+env:
+  variables:
+    BUCKET_NAME: "test-frontend"
+    DISTRIBUTION_ID: ""
+phases:
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Installing and Running npm...
+      - npm i
+      - npm run dev
